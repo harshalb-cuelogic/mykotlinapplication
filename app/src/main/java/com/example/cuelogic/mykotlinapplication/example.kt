@@ -98,7 +98,7 @@ class Unrelated(o: Outer) {
  * (note that you need to add an explicit constructor keyword):
  */
 
-class C private constructor(a: Int) {
+class C1 private constructor(a: Int) {
 //...
 }
 
@@ -121,3 +121,189 @@ class C private constructor(a: Int) {
  * a Maven or Gradle project;
  * a set of files compiled with one invocation of the Ant task.
  */
+
+fun extensions()
+{
+/**
+ * Extensions
+ * Kotlin, similar to C# and Gosu, provides the ability to extend a class with new functionality
+ * without having to inherit from the class or use any type of design pattern such as Decorator.
+ * This is done via special declarations called extensions. Kotlin supports extension functions and
+ * extension properties.
+ */
+
+/**
+ * Extension Functions
+ * To declare an extension function, we need to prefix its name with a receiver type, i.e. the type
+ * being extended. The following adds a swap function to MutableList<Int>:
+ */
+
+fun MutableList<Int>.swapElements(index1: Int, index2: Int) {
+    val tmp = this[index1] // 'this' corresponds to the list
+    this[index1] = this[index2]
+    this[index2] = tmp
+}
+
+/**
+ * The this keyword inside an extension function corresponds to the receiver object (the one that
+ * is passed before the dot). Now, we can call such a function on any MutableList<Int>:
+ */
+fun getSwapedValues() {
+    val l = mutableListOf(1, 2, 3)
+    l.swap(0, 2) // 'this' inside 'swap()' will hold the value of 'l'
+}
+/**
+ * Of course, this function makes sense for any MutableList<T>, and we can make it generic:
+ */
+
+fun <T> MutableList<T>.swap(index1: Int, index2: Int) {
+    val tmp = this[index1] // 'this' corresponds to the list
+    this[index1] = this[index2]
+    this[index2] = tmp
+}
+
+/**
+ * We declare the generic type parameter before the function name for it to be available in the
+ * receiver type expression. See Generic functions.
+ */
+
+/**
+ * Extensions are resolved statically
+ *
+ * Extensions do not actually modify classes they extend. By defining an extension, you do not
+ * insert new members into a class, but merely make new functions callable with the dot-notation on
+ * variables of this type.
+ *
+ * We would like to emphasize that extension functions are dispatched statically, i.e. they are not
+ * virtual by receiver type. This means that the extension function being called is determined by
+ * the type of the expression on which the function is invoked, not by the type of the result of
+ * evaluating that expression at runtime. For example:
+ */
+
+open class C2
+
+class D2: C2()
+
+fun C2.foo() = "c"
+
+fun D2.foo() = "d"
+
+fun printFoo(c: C2) {
+    println(c.foo())
+}
+
+printFoo(D2())
+
+    /**
+     * This example will print "c", because the extension function being called depends only on the
+     * declared type of the parameter c, which is the C class.
+     *
+     * If a class has a member function, and an extension function is defined which has the same
+     * receiver type, the same name and is applicable to given arguments, the member always wins.
+     * For example:
+     */
+
+
+class C3 {
+    fun foo() { println("member") }
+}
+
+fun C3.foo() { println("extension") }
+
+    /**
+     * If we call c.foo() of any c of type C, it will print "member", not "extension".
+     *
+     * However, it's perfectly OK for extension functions to overload member functions which have
+     * the same name but a different signature:
+     */
+
+class C4 {
+    fun foo() { println("member") }
+}
+
+fun C4.foo(i: Int)
+{ println("extension")}
+
+    /**
+     * The call to C().foo(1) will print "extension".
+     */
+
+    /**
+     * Nullable Receiver
+     * Note that extensions can be defined with a nullable receiver type. Such extensions can be
+     * called on an object variable even if its value is null, and can check for this == null
+     * inside the body. This is what allows you to call toString() in Kotlin without checking for
+     * null: the check happens inside the extension function.
+     */
+
+fun Any?.toString(): String {
+    if (this == null) return "null"
+    // after the null check, 'this' is autocast to a non-null type, so the toString() below
+    // resolves to the member function of the Any class
+    return toString()
+}
+}
+
+/**
+ * Extension Properties
+ *
+ * Similarly to functions, Kotlin supports extension properties:
+ */
+
+val <T> List<T>.lastIndex: Int
+    get() = size - 1
+
+/**
+ * Note that, since extensions do not actually insert members into classes, there's no efficient
+ * way for an extension property to have a backing field. This is why initializers are not
+ * allowed for extension properties. Their behavior can only be defined by explicitly providing
+ * getters/setters.
+ * Example:
+ */
+
+//val Foo.bar = 1 // error: initializers are not allowed for extension properties
+
+/**
+ * Companion Object Extensions
+ * If a class has a companion object defined, you can also define extension functions and
+ * properties for the companion object:
+ */
+
+class MyClass {
+    companion object { }  // will be called "Companion"
+}
+
+fun extensions1()
+{
+    fun MyClass.Companion.foo() {
+        // ...
+    }
+    /**
+     * Just like regular members of the companion object, they can be called using only the class
+     * name as the qualifier:
+     */
+
+    MyClass.foo()
+
+    /**
+     * Scope of Extensions
+     * Most of the time we define extensions on the top level, i.e. directly under packages:
+     */
+//    //package foo.bar
+//
+//    fun Baz.goo() { ... }
+//    To use such an extension outside its declaring package, we need to import it at the call site:
+//
+//    package com.example.usage
+//
+//    import foo.bar.goo // importing all extensions by name "goo"
+//// or
+//            import foo.bar.*   // importing everything from "foo.bar"
+//
+//    fun usage(baz: Baz) {
+//        baz.goo()
+//    }
+//
+//    See Imports for more information.
+
+    }
