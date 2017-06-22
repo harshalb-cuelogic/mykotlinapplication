@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
         packages()
         ControlFlow()
         ReturnsAndJumps()
+        PropertiesAndFields()
     }
 
     fun datatypes()
@@ -627,6 +628,52 @@ class MainActivity : AppCompatActivity() {
          *  return@a 1
          *  means "return 1 at label @a" and not "return a labeled expression (@a 1)".
          */
+
+    }
+
+    fun PropertiesAndFields()
+    {
+        /**
+         * Properties and Fields
+         *
+         * Declaring Properties
+         *
+         * Classes in Kotlin can have properties. These can be declared as mutable, using the var keyword or read-only using the val keyword.
+         */
+
+        class Address {
+        var name: String = "Harshal"
+        var street: String = "Wakad"
+        var city: String = "Chinchwad"
+        var state: String? = "Maharashtra"
+        var zip: String = "000000"
+        }
+
+        /**
+         * To use a property, we simply refer to it by name, as if it were a field in Java:
+        */
+
+        fun copyAddress(address: Address): Address {
+            val result = Address() // there's no 'new' keyword in Kotlin
+            result.name = address.name // accessors are called
+            result.street = address.street
+            // ...
+            return result
+        }
+
+        /**
+         * Getters and Setters
+         * The full syntax for declaring a property is
+         * var <propertyName>[: <PropertyType>] [= <property_initializer>]
+         * [<getter>]
+         * [<setter>]
+         *
+         * The initializer, getter and setter are optional. Property type is optional if it can be
+         * inferred from the initializer (or from the getter return type, as shown below).
+         * Examples:
+         */
+
+
 
     }
 
