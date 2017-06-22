@@ -2,6 +2,7 @@ package com.example.cuelogic.mykotlinapplication
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import java.lang.Integer.parseInt
 
 class MainActivity : AppCompatActivity() {
 
@@ -10,6 +11,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         datatypes()
         packages()
+        ControlFlow()
     }
 
     fun datatypes()
@@ -323,6 +325,194 @@ class MainActivity : AppCompatActivity() {
          *
          * Unlike Java, Kotlin does not have a separate "import static" syntax; all of these
          * declarations are imported using the regular import keyword.
+         */
+    }
+
+    fun ControlFlow()
+    {
+        /**
+         * If Expression
+         *
+         * In Kotlin, if is an expression, i.e. it returns a value. Therefore there is no ternary
+         * operator (condition ? then : else), because ordinary if works fine in this role.
+         */
+
+        // Traditional usage
+        var a = 1
+        var b = 2
+
+        var max = a
+        if (a < b) max = b
+
+        println("Max is ${max}")
+
+        // With else
+        var max1: Int
+        if (a > b) {
+            max1 = a
+        } else {
+            max1 = b
+        }
+        println("Max1 is ${max1}")
+
+        // As expression
+        val max2 = if (a > b) a else b
+        println("Max2 is ${max2}")
+
+        /**
+         * if branches can be blocks, and the last expression is the value of a block:
+         */
+
+        val max3 = if (a > b) {
+            print("Choose a")
+            a
+        } else {
+            print("Choose b")
+            b
+        }
+        println("Max3 is ${max3}")
+        /**
+         * Note : If you're using if as an expression rather than a statement (for example,
+         * returning its value or assigning it to a variable), the expression is required to have
+         * an else branch.
+         */
+
+
+        /**
+         * When Expression : when replaces the switch operator of C-like languages. In the simplest
+         * form it looks like this
+         */
+        var x = 5
+        when (x) {
+            1 -> print("x == 1")
+            2 -> print("x == 2")
+            else -> { // Note the block
+                print("x is neither 1 nor 2")
+            }
+        }
+
+        /**
+         * when matches its argument against all branches sequentially until some branch condition
+         * is satisfied. when can be used either as an expression or as a statement. If it is used
+         * as an expression, the value of the satisfied branch becomes the value of the overall
+         * expression. If it is used as a statement, the values of individual branches are ignored.
+         * (Just like with if, each branch can be a block, and its value is the value of the last
+         * expression in the block.)
+         *
+         * The else branch is evaluated if none of the other branch conditions are satisfied.
+         * If when is used as an expression, the else branch is mandatory, unless the compiler can
+         * prove that all possible cases are covered with branch conditions.
+         */
+
+        /**
+         * If many cases should be handled in the same way, the branch conditions may be combined
+         * with a comma:
+         */
+
+        when (x) {
+            0, 1 -> print("x == 0 or x == 1")
+            else -> print("otherwise")
+        }
+
+        /**
+         * We can use arbitrary expressions (not only constants) as branch conditions
+         * */
+
+        var s = "2"
+
+        when (x) {
+        parseInt(s) -> print("s encodes x")
+        else -> print("s does not encode x")
+        }
+        /**
+         * We can also check a value for being in or !in a range or a collection:
+         */
+
+        var validNumbers = arrayOf(1,6,9,4,7)
+
+        when (x) {
+        in 1..10 -> print("x is in the range")
+        in validNumbers -> print("x is valid")
+        !in 10..20 -> print("x is outside the range")
+        else -> print("none of the above")
+        }
+
+        /**
+         * Another possibility is to check that a value is or !is of a particular type. Note that,
+         * due to smart casts, you can access the methods and properties of the type without any
+         * extra checks.
+         */
+
+        fun hasPrefix(x: Any) = when(x) {
+            is String -> x.startsWith("prefix")
+            else -> false
+        }
+
+        println(hasPrefix(1))
+        println(hasPrefix("prefix string"))
+
+        /**
+         * when can also be used as a replacement for an if-else if chain. If no argument is
+         * supplied, the branch conditions are simply boolean expressions, and a branch is executed
+         * when its condition is true:
+         */
+
+        when {
+            (x % 2 != 0) -> print("x is odd")
+            (x % 2 == 0) -> print("x is even")
+            else -> print("x is funny")
+        }
+
+        /**
+         * For Loops
+         * for loop iterates through anything that provides an iterator. The syntax is as follows:
+         */
+
+        for (item in validNumbers) print(item)
+        /**
+         * The body can be a block.
+         */
+
+        for (item: Int in validNumbers) {
+            println("Num ${item}")
+        }
+
+        /**
+         * If you want to iterate through an array or a list with an index, you can do it this way:
+         */
+        for (i in validNumbers.indices) {
+            print(validNumbers[i])
+        }
+
+        /**
+         * Note that this "iteration through a range" is compiled down to optimal implementation
+         * with no extra objects created.
+         *
+         * Alternatively, you can use the withIndex library function:
+         */
+
+        for ((index, value) in validNumbers.withIndex()) {
+            println("the element at $index is $value")
+        }
+
+        /**
+         * While Loops
+         * while and do..while work as usual
+         */
+
+        while (x > 0) {
+            x--
+        }
+
+        x = 5
+
+        do {
+            x--
+        } while (x > 0)
+
+        /**
+         * Break and continue in loops
+         * Kotlin supports traditional break and continue operators in loops.
          */
     }
 
