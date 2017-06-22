@@ -85,6 +85,28 @@ class MainActivity : AppCompatActivity() {
         println("Smallest Byte : " + smallByte)
 
         /**
+         * Booleans are either true or false
+         */
+
+        if (true is Boolean){
+            print("true is boolean\n")
+        }
+
+        /**
+         * Characters
+         */
+
+        var letterGrade: Char = 'A'
+        println("A is a Char : " + (letterGrade is Char))
+
+        /**
+         * Stings
+         */
+
+        var sampleString: String = "Sample String"
+        println("Sample String is a String : " + (sampleString is String))
+
+        /**
          * Literal Constants
          * There are the following kinds of literal constants for integral values:
          * Decimals: 123
@@ -127,6 +149,23 @@ class MainActivity : AppCompatActivity() {
          * toFloat(): Float
          * toDouble(): Double
          * toChar(): Char
+         */
+
+        /**
+         * Casting
+         */
+
+        println("3.14 to Int : " + (3.14.toInt()))
+        println("A to Int : " + (letterGrade.toInt()))
+        println("65 to Char : " + (65.toChar()))
+
+
+        /**
+         * Operations
+         */
+
+        /**
+         *
          */
     }
 }
