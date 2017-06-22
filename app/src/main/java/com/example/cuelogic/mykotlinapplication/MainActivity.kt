@@ -770,3 +770,5 @@ class D : A, B {
  * applies both to methods for which we've inherited a single implementation (bar()) and multiple
  * implementations (foo()).
  */
+
+
