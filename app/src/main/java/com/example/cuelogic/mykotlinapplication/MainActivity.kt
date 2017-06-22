@@ -162,10 +162,100 @@ class MainActivity : AppCompatActivity() {
 
         /**
          * Operations
+         * Kotlin supports the standard set of arithmetical operations over numbers, which are
+         * declared as members of appropriate classes (but the compiler optimizes the calls down to
+         * the corresponding instructions).
+         *
+         * As of bitwise operations, there're no special characters for them, but just named
+         * functions that can be called in infix form, for example:
+         */
+
+        println("1 shl 2 ${1 shl 2}")
+        println("2 shr 1 ${2 shr 1}")
+        println("2 ushr 1 ${2 ushr 1}")
+        println("2 or 1 ${2 or 1}")
+        println("2 xor 1 ${2 xor 1}")
+        println("2 inv ${2.inv()}")
+
+        /**
+         * Here is the complete list of bitwise operations (available for Int and Long only):
+         * shl(bits) – signed shift left (Java's <<)
+         * shr(bits) – signed shift right (Java's >>)
+         * ushr(bits) – unsigned shift right (Java's >>>)
+         * and(bits) – bitwise and
+         * or(bits) – bitwise or
+         * xor(bits) – bitwise xor
+         * inv() – bitwise inversion
          */
 
         /**
-         *
+         * Booleans
+         * The type Boolean represents booleans, and has two values: true and false.
+         * Booleans are boxed if a nullable reference is needed.
+         * Built-in operations on booleans include
+         * || – lazy disjunction
+         * && – lazy conjunction
+         * ! - negation
          */
+
+        println(true || false)
+        println(true || true)
+        println(true && false)
+        println(true && true)
+        println(!true)
+        println(!false)
+
+        /**
+         * Arrays
+         * Arrays in Kotlin are represented by the Array class, that has get and set functions
+         * (that turn into [] by operator overloading conventions), and size property, along with a
+         * few other useful member functions
+         */
+
+        /**
+         * To create an array, we can use a library function arrayOf() and pass the item values to
+         * it, so that arrayOf(1, 2, 3) creates an array [1, 2, 3]. Alternatively, the
+         * arrayOfNulls() library function can be used to create an array of a given size filled
+         * with null elements
+         */
+
+        var arrayOfInt = arrayOf(1,2,3)
+        var arrayOfMixTypes = arrayOf(1,2.0,'3',"Four")
+
+        println("Array of integers ${arrayOfInt}")
+        println("Array of mix types ${arrayOfMixTypes}")
+
+        /**
+         * Creates an Array<String> with values ["0", "1", "4", "9", "16"]
+         * it simply make square of the i and convert it into string and return as element
+         */
+        val asc = Array(5, { i -> (i * i).toString() })
+
+        println("Element at index 2 in asc ${asc[2]}")
+
+        /**
+         * Kotlin also has specialized classes to represent arrays of primitive types without boxing
+         * overhead: ByteArray, ShortArray, IntArray and so on. These classes have no inheritance
+         * relation to the Array class, but they have the same set of methods and properties. Each
+         * of them also has a corresponding factory function:
+         */
+
+        val x: IntArray = intArrayOf(1, 2, 3)
+        x[0] = x[1] + x[2]
+
+        /**
+         * Strings
+         * Strings are represented by the type String. Strings are immutable. Elements of a string
+         * are characters that can be accessed by the indexing operation: s[i]. A string can be
+         * iterated over with a for-loop
+         */
+
+        var strHelloWorld = "Hello World"
+
+        for (c in strHelloWorld) {
+            println(c)
+        }
+
+
     }
 }
