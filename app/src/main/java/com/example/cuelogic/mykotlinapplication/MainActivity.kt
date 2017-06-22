@@ -8,6 +8,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        datatypes()
+        packages()
+    }
+
+    fun datatypes()
+    {
         /**
          * Data Types	https://kotlinlang.org/docs/reference/basic-types.html
          * */
@@ -114,13 +120,13 @@ class MainActivity : AppCompatActivity() {
          * Hexadecimals: 0x0F
          * Binaries: 0b00001011
          * NOTE: Octal literals are not supported.
-        */
+         */
 
         /**
          * Kotlin also supports a conventional notation for floating-point numbers:
          * Doubles by default: 123.5, 123.5e10
          * Floats are tagged by f or F: 123.5f
-        */
+         */
 
         /**
          * Underscores in numeric literals (since 1.1)
@@ -256,6 +262,11 @@ class MainActivity : AppCompatActivity() {
             println(c)
         }
 
+    }
+
+    fun packages()
+    {
 
     }
+
 }
