@@ -9,14 +9,14 @@ package com.example.cuelogic.mykotlinapplication
  * Classes can be nested in other classes
  */
 
-class Outer {
+class Outer1 {
     private val bar: Int = 1
     class Nested {
         fun foo() = 2
     }
 }
 
-val demo = Outer.Nested().foo() // == 2
+val demo = Outer1.Nested().foo() // == 2
 
 /**
  * Inner classes
@@ -25,14 +25,14 @@ val demo = Outer.Nested().foo() // == 2
  * a reference to an object of an outer class:
  */
 
-class Outer1 {
+class Outer2 {
     private val bar: Int = 1
     inner class Inner {
         fun foo() = bar
     }
 }
 
-val demo = Outer1().Inner().foo() // == 1
+val demo1= Outer2().Inner().foo() // == 1
 /**
  * See Qualified this expressions to learn about disambiguation of this in inner classes.
  */
@@ -43,15 +43,15 @@ val demo = Outer1().Inner().foo() // == 1
  */
 
 /**
-    window.addMouseListener(object : MouseAdapter() {
-        override fun mouseClicked(e: MouseEvent) {
-            // ...
-        }
+window.addMouseListener(object : MouseAdapter() {
+override fun mouseClicked(e: MouseEvent) {
+// ...
+}
 
-        override fun mouseEntered(e: MouseEvent) {
-            // ...
-        }
-    })
+override fun mouseEntered(e: MouseEvent) {
+// ...
+}
+})
  */
 
 /**
